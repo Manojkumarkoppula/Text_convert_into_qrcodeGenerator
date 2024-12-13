@@ -1,0 +1,93 @@
+<html>
+    <head>
+        <title>QR Code Generator</title>
+        <style>
+            /* General body styling */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+/* Styling for the main input section */
+#main {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+/* Input field styling */
+#textvalue {
+    width: 300px;
+    padding: 10px;
+    font-size: 16px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+}
+
+/* Button styling */
+#buttonvalue {
+    padding: 10px 15px;
+    font-size: 16px;
+    color: white;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#buttonvalue:hover {
+    background-color: #0056b3;
+}
+
+/* Styling for the result section */
+#result {
+    margin-top: 20px;
+    text-align: center;
+}
+
+#result img {
+    border: 2px solid #007bff;
+    border-radius: 5px;
+}
+
+        </style>
+    </head>
+    <body>
+        <div id="main">
+            <input type="text" id="textvalue" placeholder="Enter text">
+            <button id="buttonvalue" onclick="generate()">Generate</button>
+        </div>
+        <div id="result">
+        </div>
+        <script>
+            function generate() {
+                const textvalue = document.getElementById('textvalue').value;
+
+                if (textvalue.trim() === "") {
+                    alert("Please enter some data.");
+                    return;
+                }
+
+                // Clear previous result
+                document.getElementById('result').innerHTML = "";
+
+                // Create the QR code using QRServer API
+                var img = document.createElement('img');
+                img.src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(textvalue)}`;
+                document.getElementById('result').appendChild(img);
+            }
+        </script>
+    </body>
+</html>
